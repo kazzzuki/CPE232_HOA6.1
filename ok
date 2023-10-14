@@ -1,3 +1,26 @@
-TASK [install apache and php for CentOS servers] ************************************************
-fatal: [192.168.56.126]: FAILED! => {"msg": "The conditional check 'ansible distribution == \"CentOS\"' failed. The error was: template error while templating string: expected token 'end of statement block', got 'distribution'. String: {% if ansible distribution == \"CentOS\" %} True {% else %} False {% endif %}. expected token 'end of statement block', got 'distribution'\n\nThe error appears to be in '/home/kazuki/CPE232_HOA6.1/site.yml': line 38, column 5, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n  - name: install apache and php for CentOS servers\n    ^ here\n"}
-fatal: [192.168.56.123]: FAILED! => {"msg": "The conditional check 'ansible distribution == \"CentOS\"' failed. The error was: template error while templating string: expected token 'end of statement block', got 'distribution'. String: {% if ansible distribution == \"CentOS\" %} True {% else %} False {% endif %}. expected token 'end of statement block', got 'distribution'\n\nThe error appears to be in '/home/kazuki/CPE232_HOA6.1/site.yml': line 38, column 5, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n  - name: install apache and php for CentOS servers\n    ^ here\n"}
+TASK [Mariadb- Restarting/Enabling] ************************************************************
+fatal: [192.168.56.125]: FAILED! => {"changed": false, "msg": "Could not find the requested service mariadb: host"}
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: install mariadb package (CentOS)
+    yum:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  - name: "Mariadb- Restarting/Enabling"
+    service:
+      name: mariadb
+      state: restarted
+      enabled: true
+
+  - name: install mariadb package (Ubuntu)
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+
