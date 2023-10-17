@@ -1,10 +1,10 @@
 
 [web_servers]
 192.168.56.126	ansible_connection=ssh
-192.168.56.123  ansible_connection=ssh
+192.168.56.127  ansible_connection=ssh
 
 [db_servers]
 192.168.56.125  ansible_connection=ssh
 
 [file_servers]
-192.168.56.127  ansible_connection=ssh
+192.168.56.123  ansible_connection=ssh
